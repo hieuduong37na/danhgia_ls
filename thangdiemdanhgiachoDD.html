@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đánh giá lâm sàng: VAS, NEWS 2 & Các thang điểm khác</title>
+    <!-- THÊM ICON TRANG WEB Ở ĐÂY -->
+    <link rel="icon" href="https://img.magnific.com/vector-mien-phi/trai-tim-gradient-mau-do-voi-mu-dieu-duong-va-ong-nghe_1308-85839.jpg?semt=ais_hybrid&w=740&q=80" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://img.magnific.com/vector-mien-phi/trai-tim-gradient-mau-do-voi-mu-dieu-duong-va-ong-nghe_1308-85839.jpg?semt=ais_hybrid&w=740&q=80">
+    
+    <style>
+        :root {
+            --c-0: #10b981; 
+            --c-1: #f59e0b; 
+            --c-2: #ea580c; 
+            --c-3: #ef4444; 
+            --bg-main: #f3f4f6;
+            --card-bg: #ffffff;
+            --border-light: #e5e7eb;
+            --text-main: #374151;
+            --text-muted: #6b7280;
+        }
+
+        body { 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            line-height: 1.4; 
+            padding: 16px; 
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .main-container {
+            max-width: 1600px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            align-items: start;
+            padding-bottom: 40px;
+        }
+
+        .header-title {
+            grid-column: 1 / -1; 
+            text-align: center;
+            color: #111827;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-light);
+        }
+
+        /* --- MENU THU GỌN --- */
+        details summary { cursor: pointer; list-style: none; outline: none; user-select: none; }
+        details summary::-webkit-details-marker { display: none; }
+        .collapse-header { display: flex; justify-content: space-between; align-items: center; }
+        .collapse-header h2 { margin: 0; border: none; padding: 0; color: #1f2937; font-size: 1.15rem; font-weight: 600; }
+        .collapse-icon { font-size: 1rem; color: #9ca3af; transition: transform 0.2s; }
+        details[open] .collapse-icon { transform: rotate(180deg); }
+        .collapse-content { padding-top: 16px; animation: fadeIn 0.2s ease; border-top: 1px solid var(--border-light); margin-top: 12px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- KẾT QUẢ STICKY --- */
+        .sticky-result {
+            position: -webkit-sticky; position: sticky; top: 8px; z-index: 100; 
+            padding: 12px 16px; border-radius: 8px; border-left: 4px solid #9ca3af; 
+            margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            transition: all 0.3s; background: #f9fafb;
+        }
+        .score-display { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; color: #111827; }
+        
+        .alert-default { border-left-color: #9ca3af; color: var(--text-muted); }
+        .alert-low { background: #ecfdf5; border-left-color: var(--c-0); color: #065f46; }
+        .alert-med-low { background: #fffbeb; border-left-color: var(--c-1); color: #92400e; }
+        .alert-med { background: #fff7ed; border-left-color: var(--c-2); color: #9a3412; }
+        .alert-high { background: #fef2f2; border-left-color: var(--c-3); color: #991b1b; }
+
+        .action-list { margin: 6px 0 0 0; padding-left: 18px; font-size: 0.85rem; line-height: 1.4; }
+        .action-list li { margin-bottom: 3px; }
+
+        /* --- LƯỚI NHẬP LIỆU BÊN TRONG CARD --- */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        
+        .input-group { 
+            background: #fafafa; border: 1px solid var(--border-light); 
+            padding: 10px; border-radius: 8px; 
+            transition: all 0.2s ease;
+        }
+        .full-width { grid-column: 1 / -1; }
+        .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        label { font-size: 0.85rem; font-weight: 600; color: #4b5563; }
+        .hint-text { font-size: 0.75rem; color: #9ca3af; margin-top: 6px; line-height: 1.3; font-style: italic; }
+
+        /* Nhãn điểm */
+        .badge { padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: white; display: none; }
+        .badge-none { display: inline-block; background-color: #e5e7eb; color: #9ca3af; }
+        .badge-0 { display: inline-block; background-color: var(--c-0); }
+        .badge-1 { display: inline-block; background-color: var(--c-1); color: #78350f; }
+        .badge-2 { display: inline-block; background-color: var(--c-2); }
+        .badge-3 { display: inline-block; background-color: var(--c-3); }
+
+        /* Ô nhập liệu */
+        input[type="number"], select { 
+            width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; 
+            border-radius: 6px; box-sizing: border-box; font-size: 0.95rem; 
+            outline: none; transition: all 0.2s; height: 38px; background: #fff; cursor: pointer;
+        }
+        input[type="number"]:focus, select:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+
+        /* CHECKBOX CHO VIP SCORE */
+        .checkbox-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .checkbox-item { 
+            display: flex; align-items: center; gap: 10px; 
+            background: #fff; padding: 10px 12px; 
+            border: 1px solid var(--border-light); border-radius: 6px; 
+            cursor: pointer; transition: all 0.2s ease;
+            font-size: 0.9rem; color: #374151;
+        }
+        .checkbox-item:hover { border-color: #3b82f6; background: #eff6ff; }
+        .checkbox-item input[type="checkbox"] { 
+            width: 18px; height: 18px; cursor: pointer; accent-color: #3b82f6; margin: 0;
+        }
+
+        /* RADIO GROUP DÙNG CHUNG (BRADEN, RASS) */
+        .braden-section { background: #fff; border: 1px solid var(--border-light); border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+        .braden-title { background: #f3f4f6; padding: 10px 15px; font-weight: 600; color: #1f2937; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+        .braden-title span { font-size: 0.8rem; font-weight: normal; color: #6b7280; }
+        .radio-group { display: flex; flex-direction: column; }
+        .radio-item { display: flex; align-items: flex-start; padding: 12px 15px; border-bottom: 1px solid #f3f4f6; cursor: pointer; transition: background 0.2s; }
+        .radio-item:last-child { border-bottom: none; }
+        .radio-item:hover { background: #f9fafb; }
+        .radio-item input[type="radio"] { margin-top: 4px; margin-right: 12px; width: 18px; height: 18px; accent-color: #3b82f6; cursor: pointer; }
+        .radio-text { flex: 1; }
+        .radio-title { font-weight: 600; font-size: 0.95rem; color: #111827; margin-bottom: 2px; }
+        .radio-desc { font-size: 0.85rem; color: #6b7280; line-height: 1.3; }
+        .radio-score { font-weight: bold; color: #9ca3af; background: #f3f4f6; width: 30px; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-left: 10px; }
+        
+        /* Hiệu ứng khi radio được chọn */
+        .radio-item input[type="radio"]:checked + .radio-text + .radio-score { background: #3b82f6; color: white; }
+
+        /* Màu viền theo điểm */
+        .input-0 { border-color: var(--c-0) !important; background-color: #f0fdf4 !important; }
+        .input-1 { border-color: var(--c-1) !important; background-color: #fffbeb !important; }
+        .input-2 { border-color: var(--c-2) !important; background-color: #fff7ed !important; }
+        .input-3 { border-color: var(--c-3) !important; background-color: #fef2f2 !important; }
+
+        /* VAS Style */
+        .vas-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .emoji-icon { font-size: 2.5rem; line-height: 1; }
+        .vas-text-group { display: flex; flex-direction: column; }
+        .vas-title { font-weight: 600; font-size: 1.1rem; }
+        input[type="range"] { width: 100%; margin: 15px 0; accent-color: var(--c-3); height: 6px; cursor: pointer; }
+
+        /* --- RESPONSIVE RIÊNG CHO MOBILE --- */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .main-container { grid-template-columns: 1fr; gap: 16px; }
+            .card { padding: 14px; }
+            .news-grid { grid-template-columns: 1fr; }
+            .sticky-result { top: 0; border-radius: 0 0 8px 8px; margin: -16px -14px 16px -14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    
+    <h3 class="header-title">Bộ Thang Điểm Đánh Giá Lâm Sàng</h3>
+
+    <!-- 1. THANG ĐIỂM NEWS 2 -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>1. Cảnh báo sớm (NEWS 2)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="news-result" class="sticky-result alert-default">
+                    <div class="score-display">Tổng điểm NEWS: <span id="news-score">0</span></div>
+                    <div id="news-action" style="font-size: 0.85rem;">Vui lòng nhập đủ các thông số để hệ thống đánh giá.</div>
+                </div>
+                
+                <div class="news-grid">
+                    <div class="input-group">
+                        <div class="label-row"><label>Nhịp thở (l/p)</label><span class="badge badge-none" id="badge-resp">-</span></div>
+                        <input type="number" id="resp" placeholder="Ví dụ: 18" oninput="calcNews()">
+                    </div>
+                    <div class="input-group">
+                        <div class="label-row"><label>SpO2 (%)</label><span class="badge badge-none" id="badge-spo2">-</span></div>
+                        <input type="number" id="spo2" placeholder="Ví dụ: 98" oninput="calcNews()">
+                    </div>
+                    <div class="input-group">
+                        <div class="label-row"><label>Hỗ trợ Oxy</label><span class="badge badge-0" id="badge-oxygen">0 điểm</span></div>
+                        <select id="oxygen" class="input-0" onchange="calcNews()">
+                            <option value="0">Khí trời</option>
+                            <option value="2">Thở Oxy</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div class="label-row"><label>HA tâm thu</label><span class="badge badge-none" id="badge-bp">-</span></div>
+                        <input type="number" id="bp" placeholder="Ví dụ: 120" oninput="calcNews()">
+                    </div>
+                    <div class="input-group">
+                        <div class="label-row"><label>Nhịp tim (l/p)</label><span class="badge badge-none" id="badge-hr">-</span></div>
+                        <input type="number" id="hr" placeholder="Ví dụ: 80" oninput="calcNews()">
+                    </div>
+                    <div class="input-group">
+                        <div class="label-row"><label>Nhiệt độ (°C)</label><span class="badge badge-none" id="badge-temp">-</span></div>
+                        <input type="number" id="temp" step="0.1" placeholder="Ví dụ: 37" oninput="calcNews()">
+                    </div>
+                    <div class="input-group full-width-mobile" style="grid-column: 1 / -1;">
+                        <div class="label-row"><label>Ý thức (ACVPU)</label><span class="badge badge-0" id="badge-avpu">0 điểm</span></div>
+                        <select id="avpu" class="input-0" onchange="calcNews()">
+                            <option value="0">A - Tỉnh táo</option>
+                            <option value="3">CVPU (Lú lẫn mới xuất hiện, Lời nói, Đau, Không phản ứng)</option>
+                        </select>
+                        <div class="hint-text">
+                            *<strong>C</strong>: Lú lẫn mới xuất hiện, <strong>V</strong>: Lời nói, <strong>P</strong>: Kích thích đau, <strong>U</strong>: Không phản ứng.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 2. THANG ĐIỂM mMRC -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>2. Mức độ khó thở (mMRC)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="mmrc-result" class="sticky-result alert-default">
+                    <div class="score-display">Mức độ: <span id="mmrc-score">-</span></div>
+                    <div id="mmrc-action" style="font-size: 0.85rem;">Vui lòng đánh giá tình trạng khó thở.</div>
+                </div>
+                <div class="news-grid" style="grid-template-columns: 1fr;">
+                    <div class="input-group">
+                        <div class="label-row"><label>Triệu chứng khó thở</label><span class="badge badge-none" id="badge-mmrc-select">-</span></div>
+                        <select id="mmrc-select" onchange="calcmMRC()" style="height: auto;">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">Độ 0 - Bệnh nhân bị khó thở khi tập thể dục quá sức</option>
+                            <option value="1">Độ 1 - Bị khó thở khi đi nhanh hoặc đi bộ lên dốc</option>
+                            <option value="2">Độ 2 - Đi bộ chậm hơn so với những người cùng lứa tuổi trên cùng cấp độ vì khó thở hoặc phải dừng lại để thở</option>
+                            <option value="3">Độ 3 - Phải dừng lại để thở sau khi đi bộ khoảng 100m hoặc sau vài phút</option>
+                            <option value="4">Độ 4 - Bệnh nhân bị khó thở khi hoạt động nhẹ nhất như đi ra khỏi nhà, khó thở khi mặc quần áo hoặc cởi quần áo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 3. THANG ĐIỂM MORSE -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>3. Nguy cơ té ngã (Morse)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="morse-result" class="sticky-result alert-default">
+                    <div class="score-display">Tổng điểm Morse: <span id="morse-score">0</span></div>
+                    <div id="morse-action" style="font-size: 0.85rem;">Vui lòng chọn đủ 6 tiêu chí để đánh giá.</div>
+                </div>
+                <div class="news-grid">
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>1. Tiền sử té ngã</label><span class="badge badge-none" id="badge-morse-1">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Mới vừa xảy ra hoặc trong vòng 3 tháng qua</div>
+                        <select id="morse-1" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Không</option>
+                            <option value="25">25 - Có té ngã trong vòng 3 tháng</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>2. Bệnh lý kèm theo</label><span class="badge badge-none" id="badge-morse-2">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Tiểu đường, HA, đang dùng các loại thuốc khác</div>
+                        <select id="morse-2" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Không</option>
+                            <option value="15">15 - Có ≥ 2 bệnh</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>3. Truyền dịch/thuốc tĩnh mạch</label><span class="badge badge-none" id="badge-morse-3">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Bệnh nhân có đang truyền dịch/thuốc tĩnh mạch?</div>
+                        <select id="morse-3" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Có</option>
+                            <option value="20">20 - Không</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>4. Phương tiện, dụng cụ hỗ trợ</label><span class="badge badge-none" id="badge-morse-4">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Dụng cụ hỗ trợ đi lại của bệnh nhân</div>
+                        <select id="morse-4" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Đi lại không cần hỗ trợ, nghỉ ngơi tại giường</option>
+                            <option value="15">15 - Xe lăn, nạng, gậy, khung tập đi, ĐD hỗ trợ</option>
+                            <option value="30">30 - Bám, tựa vào bàn, tường để đi lại</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>5. Dáng đi/Cách di chuyển</label><span class="badge badge-none" id="badge-morse-5">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Đánh giá trạng thái thể chất khi đi lại</div>
+                        <select id="morse-5" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Bình thường</option>
+                            <option value="10">10 - Yếu, nằm trên giường bất động</option>
+                            <option value="20">20 - Khó khăn/loạng choạng</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width-mobile">
+                        <div class="label-row"><label>6. Tình trạng tâm thần</label><span class="badge badge-none" id="badge-morse-6">-</span></div>
+                        <div class="hint-text" style="margin-top: 0; margin-bottom: 4px;">Kiểm tra nhận thức của bệnh nhân</div>
+                        <select id="morse-6" onchange="calcMorse()">
+                            <option value="">-- Chọn --</option>
+                            <option value="0">0 - Định hướng được bản thân</option>
+                            <option value="15">15 - Quên, lú lẫn</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 4. THANG ĐIỂM BRADEN -->
+    <div class="card" style="grid-column: 1 / -1;">
+        <details>
+            <summary class="collapse-header">
+                <h2>4. Nguy cơ loét (Braden)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="braden-result" class="sticky-result alert-default">
+                    <div class="score-display">Tổng điểm Braden: <span id="braden-score">0</span></div>
+                    <div id="braden-action" style="font-size: 0.85rem;">Vui lòng chọn đủ 6 tiêu chí để đánh giá.</div>
+                </div>
+                
+                <div class="news-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                    <!-- 1. CẢM GIÁC -->
+                    <div class="braden-section">
+                        <div class="braden-title">Cảm giác <span>Khả năng phản ứng có ý thức với các áp lực tì đè</span></div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-1" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Giảm hoàn toàn</div>
+                                    <div class="radio-desc">do hôn mê/ an thần hoặc giảm cảm nhận đau trên toàn bộ cơ thể</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-1" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Giảm nhiều</div>
+                                    <div class="radio-desc">chỉ đáp ứng với kích thích đau, không nói được khi khó chịu – chỉ rên/bồn chồn hoặc giảm cảm nhận đau trên nửa người</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-1" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Giảm một chút</div>
+                                    <div class="radio-desc">không thường xuyên thông báo khi khó chịu/ khi cần lật trở hoặc giảm cảm giác đau ở 1 – 2 chi</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-1" value="4" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Bình thường</div>
+                                    <div class="radio-desc">cảm giác bình thường</div>
+                                </div>
+                                <div class="radio-score">4</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 2. ĐỘ ẨM -->
+                    <div class="braden-section">
+                        <div class="braden-title">Độ ẩm bề mặt da <span>Đánh giá mức độ ẩm ướt trên bề mặt da</span></div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-2" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Liên tục ẩm ướt</div>
+                                    <div class="radio-desc">ẩm ướt phát hiện mỗi khi lật/ trở người bệnh</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-2" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Khá thường xuyên</div>
+                                    <div class="radio-desc">phải tăng tần suất thay ga/ đệm</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-2" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Thỉnh thoảng</div>
+                                    <div class="radio-desc">thay ga/đệm ít nhất 1 lần mỗi ca trực</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-2" value="4" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Hiếm khi</div>
+                                    <div class="radio-desc">da thường khô</div>
+                                </div>
+                                <div class="radio-score">4</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 3. HOẠT ĐỘNG -->
+                    <div class="braden-section">
+                        <div class="braden-title">Hoạt động <span>Mức độ vận động</span></div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-3" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Nằm liệt giường</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-3" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Phải có hỗ trợ của xe lăn khi di chuyển</div>
+                                    <div class="radio-desc">phải dìu ra ghế/ xe lăn</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-3" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Thỉnh thoảng đi lại</div>
+                                    <div class="radio-desc">phần lớn thời gian trên giường/ ghế</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-3" value="4" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Thường xuyên đi lại</div>
+                                </div>
+                                <div class="radio-score">4</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 4. SỰ CỬ ĐỘNG -->
+                    <div class="braden-section">
+                        <div class="braden-title">Sự cử động <span>Khả năng thay đổi và kiểm soát vị trí cơ thể</span></div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-4" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Bất động hoàn toàn</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-4" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Rất hạn chế</div>
+                                    <div class="radio-desc">thỉnh thoảng thay đổi nhỏ vị trí cơ thể/ chi nhưng không thể thay đổi vị trí đáng kể và thường xuyên mà không có hỗ trợ</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-4" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Hạn chế vừa phải</div>
+                                    <div class="radio-desc">thường xuyên thay đổi nhỏ vị trí cơ thể/ chi một cách độc lập</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-4" value="4" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Không giới hạn</div>
+                                </div>
+                                <div class="radio-score">4</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 5. DINH DƯỠNG -->
+                    <div class="braden-section">
+                        <div class="braden-title">Dinh dưỡng <span>Lượng thức ăn nhận được</span></div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-5" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Rất kém ăn</div>
+                                    <div class="radio-desc">bao gồm người bệnh chỉ truyền dịch trong hơn 5 ngày</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-5" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Kém ăn</div>
+                                    <div class="radio-desc">bao gồm người bệnh ăn qua sonde/ chế độ ăn lỏng nhưng không tiếp nhận được định lượng tối ưu</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-5" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Ăn tốt</div>
+                                    <div class="radio-desc">bao gồm người bệnh tiếp nhận tốt thức ăn qua sonde, đáp ứng hầu hết nhu cầu dinh dưỡng</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-5" value="4" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Ăn rất tốt</div>
+                                    <div class="radio-desc">ăn đầy đủ các bữa chính và thỉnh thoảng ăn nhẹ</div>
+                                </div>
+                                <div class="radio-score">4</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 6. MA SÁT & TỔN THƯƠNG -->
+                    <div class="braden-section">
+                        <div class="braden-title">Sự cọ xát & Tổn thương dạng vết cắt</div>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="bra-6" value="1" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Có vấn đề</div>
+                                    <div class="radio-desc">ma sát với đệm khi dịch chuyển là không tránh khỏi. Co cứng cơ, co giật, kích động nhiều làm tăng ma sát cơ thể với đệm</div>
+                                </div>
+                                <div class="radio-score">1</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-6" value="2" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Vấn đề tiềm tàng</div>
+                                    <div class="radio-desc">cơ thể vẫn có trượt trên đệm khi dịch chuyển, có thể duy trì tư thế khi ngồi/nằm nhưng thỉnh thoảng vẫn trượt khỏi vị trí</div>
+                                </div>
+                                <div class="radio-score">2</div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="bra-6" value="3" onchange="calcBraden()">
+                                <div class="radio-text">
+                                    <div class="radio-title">Không có vấn đề</div>
+                                    <div class="radio-desc">đủ sức nâng toàn bộ cơ thể khi dịch chuyển, luôn duy trì tư thế tốt khi ngồi/nằm</div>
+                                </div>
+                                <div class="radio-score">3</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 5. THANG ĐIỂM GCS -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>5. Hôn mê Glasgow (GCS)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="gcs-result" class="sticky-result alert-default">
+                    <div class="score-display">Tổng điểm GCS: <span id="gcs-score">0</span> / 15</div>
+                    <div id="gcs-action" style="font-size: 0.85rem;">Vui lòng chọn đủ 3 phản ứng.</div>
+                </div>
+                <div class="news-grid" style="grid-template-columns: 1fr;">
+                    <div class="input-group full-width">
+                        <div class="label-row"><label>Mở mắt (E)</label><span class="badge badge-none" id="badge-gcs-e">-</span></div>
+                        <select id="gcs-e" onchange="calcGCS()">
+                            <option value="">-- Chọn --</option>
+                            <option value="4">4 - Tự mở mắt</option>
+                            <option value="3">3 - Mở mắt khi gọi</option>
+                            <option value="2">2 - Mở mắt khi kích thích đau</option>
+                            <option value="1">1 - Không mở mắt</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <div class="label-row"><label>Lời nói (V)</label><span class="badge badge-none" id="badge-gcs-v">-</span></div>
+                        <select id="gcs-v" onchange="calcGCS()">
+                            <option value="">-- Chọn --</option>
+                            <option value="5">5 - Định hướng tốt</option>
+                            <option value="4">4 - Lú lẫn</option>
+                            <option value="3">3 - Nói từ không phù hợp</option>
+                            <option value="2">2 - Âm thanh không rõ</option>
+                            <option value="1">1 - Không đáp ứng</option>
+                            <option value="t" style="color: #ea580c; font-weight: bold;">Vt - Đặt ống nội khí quản (Không thử được)</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <div class="label-row"><label>Vận động (M)</label><span class="badge badge-none" id="badge-gcs-m">-</span></div>
+                        <select id="gcs-m" onchange="calcGCS()">
+                            <option value="">-- Chọn --</option>
+                            <option value="6">6 - Thực hiện đúng y lệnh</option>
+                            <option value="5">5 - Định vị được kích thích đau</option>
+                            <option value="4">4 - Co tay tránh đau</option>
+                            <option value="3">3 - Gấp bất thường</option>
+                            <option value="2">2 - Duỗi bất thường</option>
+                            <option value="1">1 - Không đáp ứng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="hint-text" style="margin-top:10px;">*Lưu ý: Nếu NB đặt NKQ không thử được V, hệ thống sẽ ghi nhận là Vt và không tự quy đổi thành điểm 1.</div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 6. THANG ĐIỂM VAS -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>6. Thang điểm đau (VAS)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div class="vas-header">
+                    <div id="vas-emoji" class="emoji-icon">😃</div>
+                    <div class="vas-text-group">
+                        <span class="vas-title" id="vas-label" style="color: #3b82f6;">Không đau</span>
+                        <span class="vas-desc">Điểm: <strong id="vas-val">0</strong>/10</span>
+                    </div>
+                </div>
+                <input type="range" id="vas-slider" min="0" max="10" value="0">
+                <div id="vas-result" style="font-size: 0.95rem; color: var(--text-muted); margin-top: 10px;">
+                    <strong>Điểm 0:</strong> Không đau.
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 7. THANG ĐIỂM VIP (Viêm tĩnh mạch) -->
+    <div class="card">
+        <details>
+            <summary class="collapse-header">
+                <h2>7. Viêm tĩnh mạch (VIP SCORE)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="vip-result" class="sticky-result alert-low">
+                    <div class="score-display">Điểm VIP: <span id="vip-score">Độ 0</span></div>
+                    <div id="vip-action" style="font-size: 0.85rem;">
+                        <strong>Đánh giá:</strong> Không có dấu hiệu viêm tĩnh mạch<br><strong>Xử trí:</strong> Tiếp tục theo dõi vị trí đặt catheter
+                    </div>
+                </div>
+                
+                <div class="news-grid" style="grid-template-columns: 1fr;">
+                    <div class="input-group">
+                        <div class="label-row">
+                            <label>Đánh giá các dấu hiệu lâm sàng (Chọn các triệu chứng đang có)</label>
+                            <span class="badge badge-0" id="badge-vip">0 điểm</span>
+                        </div>
+                        <div class="checkbox-list">
+                            <label class="checkbox-item"><input type="checkbox" id="vip-pain-mild" onchange="calcVIP('vip-pain-mild')"> Đau nhẹ tại vị trí đặt catheter</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-red-mild" onchange="calcVIP('vip-red-mild')"> Đỏ nhẹ tại vị trí đặt catheter</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-pain" onchange="calcVIP('vip-pain')"> Đau tại vị trí đặt catheter</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-red" onchange="calcVIP('vip-red')"> Tấy đỏ</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-swell" onchange="calcVIP('vip-swell')"> Sưng nề</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-pain-along" onchange="calcVIP('vip-pain-along')"> Đau dọc theo vị trí đặt catheter</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-cord" onchange="calcVIP('vip-cord')"> Có thể sờ chạm tĩnh mạch nối cứng</label>
+                            <label class="checkbox-item"><input type="checkbox" id="vip-fever" onchange="calcVIP('vip-fever')"> Sốt</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- 8. THANG ĐIỂM RASS -->
+    <div class="card" style="grid-column: 1 / -1;">
+        <details>
+            <summary class="collapse-header">
+                <h2>8. Kích động - An thần (RASS)</h2>
+                <span class="collapse-icon">▼</span>
+            </summary>
+            <div class="collapse-content">
+                <div id="rass-result" class="sticky-result alert-default">
+                    <div class="score-display">Điểm RASS: <span id="rass-score">-</span></div>
+                    <div id="rass-action" style="font-size: 0.85rem;">Vui lòng chọn mức độ đánh giá.</div>
+                </div>
+                
+                <div class="braden-section">
+                    <div class="braden-title">Đánh giá RASS <span>Mục tiêu RASS: -2 đến 0 điểm</span></div>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="4" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Kích động</div>
+                                <div class="radio-desc">Kích động hoặc quá khích mạnh, gây nguy hiểm NVYT</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">+4</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="3" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Kích thích mạnh</div>
+                                <div class="radio-desc">Tự rút NKQ hoặc rút catheter hoặc có hành vi quá khích với NVYT</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">+3</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="2" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Kích thích</div>
+                                <div class="radio-desc">Thường xuyên giãy giụa hoặc bệnh nhân thở chống máy</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">+2</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="1" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Bồn chồn</div>
+                                <div class="radio-desc">Lo lắng hoặc sợ hãi nhưng không giãy giụa quá mức</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">+1</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="0" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Tỉnh và yên lặng</div>
+                                <div class="radio-desc">Chú ý tự nhiên với nhân viên y tế</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">0</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="-1" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Ngủ gà</div>
+                                <div class="radio-desc">Không tỉnh hoàn toàn, nhưng thức tỉnh, đáp ứng bằng ánh mắt theo mệnh lệnh duy trì trên 10 giây</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">-1</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="-2" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">An thần nhẹ</div>
+                                <div class="radio-desc">Thức tỉnh, đáp ứng bằng ánh mắt theo mệnh lệnh trong thời gian ngắn dưới 10 giây</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">-2</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="-3" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">An thần vừa</div>
+                                <div class="radio-desc">Cựa quậy theo mệnh lệnh nhưng không có đáp ứng bằng ánh mắt</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">-3</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="-4" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">An thần sâu</div>
+                                <div class="radio-desc">Không đáp ứng với lời nói, nhưng BN có cựa quậy với các kích thích cơ thể</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">-4</div>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="rass" value="-5" onchange="calcRASS()">
+                            <div class="radio-text">
+                                <div class="radio-title">Không thể đánh thức</div>
+                                <div class="radio-desc">Không đáp ứng bằng mệnh lệnh và các kích thích cơ thể</div>
+                            </div>
+                            <div class="radio-score" style="width: 35px;">-5</div>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    // --- HÀM TIỆN ÍCH DÙNG CHUNG ---
+    function updateFieldUISeverity(id, score, severity) {
+        const badge = document.getElementById('badge-' + id);
+        const input = document.getElementById(id);
+        
+        if (badge) badge.className = 'badge';
+        if (input) input.classList.remove('input-0', 'input-1', 'input-2', 'input-3');
+
+        if (score === null || score === "") {
+            if (badge) {
+                badge.textContent = '-';
+                badge.classList.add('badge-none');
+            }
+        } else if (score === 't') {
+            if (badge) {
+                badge.textContent = 'Vt';
+                badge.classList.add('badge-' + severity);
+            }
+            if (input) input.classList.add('input-' + severity);
+        } else {
+            if (badge) {
+                badge.textContent = score + (id.startsWith('mmrc') || id.startsWith('vip') ? '' : ' điểm');
+                badge.classList.add('badge-' + severity);
+            }
+            if (input) input.classList.add('input-' + severity);
+        }
+    }
+
+    function resetBox(box, actionText, msg) {
+        box.className = 'sticky-result alert-default';
+        actionText.innerHTML = msg;
+    }
+
+    // --- XỬ LÝ NEWS 2 ---
+    function calcNews() {
+        const resp = parseFloat(document.getElementById('resp').value);
+        const spo2 = parseFloat(document.getElementById('spo2').value);
+        const oxygen = document.getElementById('oxygen').value;
+        const bp = parseFloat(document.getElementById('bp').value);
+        const hr = parseFloat(document.getElementById('hr').value);
+        const avpu = document.getElementById('avpu').value;
+        const temp = parseFloat(document.getElementById('temp').value);
+        
+        const resultBox = document.getElementById('news-result');
+        const actionText = document.getElementById('news-action');
+
+        let total = 0; let singleRed = false; let allFilled = true; 
+
+        const getS = (v, rules) => {
+            if (isNaN(v)) return null;
+            return rules.find(r => v >= r.min && v <= r.max)?.score || 0;
+        };
+
+        const r_resp = getS(resp, [{min:0,max:8,score:3},{min:9,max:11,score:1},{min:12,max:20,score:0},{min:21,max:24,score:2},{min:25,max:999,score:3}]);
+        const r_spo2 = getS(spo2, [{min:0,max:91,score:3},{min:92,max:93,score:2},{min:94,max:95,score:1},{min:96,max:100,score:0}]);
+        const r_bp = getS(bp, [{min:0,max:90,score:3},{min:91,max:100,score:2},{min:101,max:110,score:1},{min:111,max:219,score:0},{min:220,max:999,score:3}]);
+        const r_hr = getS(hr, [{min:0,max:40,score:3},{min:41,max:50,score:1},{min:51,max:90,score:0},{min:91,max:110,score:1},{min:111,max:130,score:2},{min:131,max:999,score:3}]);
+        const r_temp = getS(temp, [{min:0,max:35.0,score:3},{min:35.1,max:36.0,score:1},{min:36.1,max:38.0,score:0},{min:38.1,max:39.0,score:1},{min:39.1,max:50,score:2}]);
+        const r_oxy = oxygen !== "" ? parseInt(oxygen) : null;
+        const r_avpu = avpu !== "" ? parseInt(avpu) : null;
+
+        updateFieldUISeverity('resp', r_resp, r_resp);
+        updateFieldUISeverity('spo2', r_spo2, r_spo2);
+        updateFieldUISeverity('bp', r_bp, r_bp);
+        updateFieldUISeverity('hr', r_hr, r_hr);
+        updateFieldUISeverity('temp', r_temp, r_temp);
+        updateFieldUISeverity('oxygen', r_oxy, r_oxy);
+        updateFieldUISeverity('avpu', r_avpu, r_avpu);
+
+        const arr = [r_resp, r_spo2, r_bp, r_hr, r_temp, r_oxy, r_avpu];
+        arr.forEach(val => {
+            if (val === null) allFilled = false;
+            else {
+                total += val;
+                if (val === 3) singleRed = true;
+            }
+        });
+
+        document.getElementById('news-score').textContent = isNaN(total) ? 0 : total;
+        resultBox.classList.remove('alert-default', 'alert-low', 'alert-med-low', 'alert-med', 'alert-high');
+
+        if (!allFilled) {
+            resultBox.classList.add('alert-default');
+            actionText.textContent = "Vui lòng nhập đủ các thông số bên dưới để đánh giá phân loại.";
+            return;
+        }
+
+        if (total >= 7) {
+            resultBox.classList.add('alert-high');
+            actionText.innerHTML = "<strong>Nguy cơ CAO (Cấp cứu)</strong><ul class='action-list'><li>Báo BS điều trị / chuyên khoa ngay.</li><li>Kích hoạt RRT ICU. Xem xét chuyển ICU.</li></ul>";
+        } else if (total >= 5 && total <= 6) {
+            resultBox.classList.add('alert-med');
+            actionText.innerHTML = "<strong>Nguy cơ TRUNG BÌNH (Khẩn cấp)</strong><ul class='action-list'><li>Báo BS trực ngay. Kích hoạt RRT khoa.</li><li>Theo dõi sinh tồn tối thiểu mỗi 01 giờ.</li></ul>";
+        } else if (singleRed) {
+            resultBox.classList.add('alert-med-low');
+            actionText.innerHTML = "<strong>Nguy cơ TRUNG BÌNH - THẤP</strong><ul class='action-list'><li>Báo BS đánh giá lại. Theo dõi mỗi 1 giờ.</li></ul>";
+        } else {
+            resultBox.classList.add('alert-low');
+            actionText.innerHTML = "<strong>Nguy cơ THẤP</strong><ul class='action-list'><li>Theo dõi thường quy (mỗi 12h hoặc 4-6h).</li></ul>";
+        }
+    }
+
+    // --- XỬ LÝ mMRC ---
+    function calcmMRC() {
+        const val = document.getElementById('mmrc-select').value;
+        const resultBox = document.getElementById('mmrc-result');
+        const actionText = document.getElementById('mmrc-action');
+
+        let sev = val !== "" ? Math.min(parseInt(val), 3) : null;
+        if (val == 2) sev = 1; 
+        if (val == 3 || val == 4) sev = 3; 
+        
+        updateFieldUISeverity('mmrc-select', val, sev);
+
+        if(val === "") {
+            document.getElementById('mmrc-score').textContent = "-";
+            resetBox(resultBox, actionText, "Vui lòng đánh giá tình trạng khó thở.");
+            return;
+        }
+
+        document.getElementById('mmrc-score').textContent = "Độ " + val;
+        
+        if (val == 0 || val == 1) {
+            resultBox.className = 'sticky-result alert-low';
+            actionText.innerHTML = "<strong>Mức độ Nhẹ (mMRC 0 - 1)</strong><ul class='action-list'><li><strong>Đặc điểm:</strong> Tình trạng khó thở chưa ảnh hưởng đáng kể đến các hoạt động sinh hoạt hàng ngày (ADL). Bệnh nhân vẫn có khả năng tự phục vụ và di chuyển độc lập.</li><li><strong>Đánh giá lâm sàng:</strong> Tình trạng hô hấp tương đối ổn định. Trong phân loại GOLD đối với bệnh nhân COPD, nhóm này thuộc phân nhóm ít triệu chứng (Nhóm A hoặc C theo phân loại cũ, hoặc nhóm A/B theo GOLD mới tùy tiền sử đợt cấp).</li><li><strong>Định hướng chăm sóc:</strong> Tập trung vào giáo dục sức khỏe, hướng dẫn bệnh nhân duy trì vận động thể lực phù hợp và nhận biết sớm các dấu hiệu trở nặng.</li></ul>";
+        } else if (val == 2) {
+            resultBox.className = 'sticky-result alert-med-low';
+            actionText.innerHTML = "<strong>Mức độ Trung bình (mMRC 2)</strong><ul class='action-list'><li><strong>Đặc điểm:</strong> Bắt đầu có sự giới hạn rõ rệt về khả năng gắng sức so với người cùng độ tuổi. Bệnh nhân phải điều chỉnh nhịp độ sinh hoạt theo tình trạng hô hấp.</li><li><strong>Đánh giá lâm sàng:</strong> Đây là ngưỡng cắt (cut-off) cực kỳ quan trọng. Điểm mMRC từ 2 trở lên báo hiệu bệnh nhân thuộc nhóm có nhiều triệu chứng (Nhóm B hoặc E theo GOLD 2023).</li><li><strong>Định hướng chăm sóc:</strong> Cần có kế hoạch can thiệp y tế cụ thể. Bệnh nhân thường được chỉ định tối ưu hóa thuốc giãn phế quản, bắt đầu các bài tập phục hồi chức năng hô hấp và cần được theo dõi sát hơn trong các lần tái khám.</li></ul>";
+        } else {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Mức độ Nặng và Rất nặng (mMRC 3 - 4)</strong><ul class='action-list'><li><strong>Đặc điểm:</strong> Suy giảm chức năng hô hấp nghiêm trọng. Bệnh nhân gần như phụ thuộc vào người khác trong các hoạt động sinh hoạt cơ bản nhất (tắm rửa, thay quần áo) và nguy cơ teo cơ, suy mòn do ít vận động là rất cao.</li><li><strong>Đánh giá lâm sàng:</strong> Bệnh nhân ở nhóm này có nguy cơ cao rơi vào các đợt cấp tính, thường xuyên phải nhập viện hoặc cần can thiệp cấp cứu. Chất lượng cuộc sống suy giảm nghiêm trọng.</li><li><strong>Định hướng chăm sóc:</strong> Đòi hỏi chế độ chăm sóc tích cực. Cần đánh giá nhu cầu thở oxy dài hạn tại nhà, hỗ trợ dinh dưỡng, kiểm soát tốt các bệnh lý đồng mắc và hướng dẫn người nhà kỹ năng chăm sóc, hỗ trợ vận động tại giường.</li></ul>";
+        }
+    }
+
+    // --- XỬ LÝ MORSE ---
+    function calcMorse() {
+        const ids = ['morse-1', 'morse-2', 'morse-3', 'morse-4', 'morse-5', 'morse-6'];
+        let total = 0; let allFilled = true;
+        
+        ids.forEach(id => {
+            const val = document.getElementById(id).value;
+            let sev = null;
+            if (val !== "") {
+                let v = parseInt(val);
+                if (v === 0) sev = 0; else if (v <= 15) sev = 1; else if (v <= 20) sev = 2; else sev = 3;
+            }
+            updateFieldUISeverity(id, val, sev);
+            if(val === "") allFilled = false; else total += parseInt(val);
+        });
+
+        const resultBox = document.getElementById('morse-result');
+        const actionText = document.getElementById('morse-action');
+
+        if(!allFilled) {
+            document.getElementById('morse-score').textContent = "0";
+            resetBox(resultBox, actionText, "Vui lòng chọn đủ 6 tiêu chí để đánh giá.");
+            return;
+        }
+
+        document.getElementById('morse-score').textContent = total;
+
+        if (total >= 45) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Mức độ CAO (≥ 45 điểm)</strong><br><ul class='action-list'><li>Thực hiện các biện pháp phòng ngừa đặc biệt, đánh giá lại mỗi ca trực.</li></ul>";
+        } else if (total >= 25 && total <= 44) {
+            resultBox.className = 'sticky-result alert-med-low';
+            actionText.innerHTML = "<strong>Mức độ TRUNG BÌNH (25 - 44 điểm)</strong><br><ul class='action-list'><li>Thực hiện các biện pháp phòng ngừa té ngã tiêu chuẩn, đánh giá lại mỗi 24 giờ.</li></ul>";
+        } else {
+            resultBox.className = 'sticky-result alert-low';
+            actionText.innerHTML = "<strong>Mức độ THẤP (0 - 24 điểm)</strong><br><ul class='action-list'><li>Chăm sóc cơ bản, đánh giá lại khi có thay đổi tình trạng bệnh nhân.</li></ul>";
+        }
+    }
+
+    // --- XỬ LÝ BRADEN ---
+    function calcBraden() {
+        const q1 = document.querySelector('input[name="bra-1"]:checked');
+        const q2 = document.querySelector('input[name="bra-2"]:checked');
+        const q3 = document.querySelector('input[name="bra-3"]:checked');
+        const q4 = document.querySelector('input[name="bra-4"]:checked');
+        const q5 = document.querySelector('input[name="bra-5"]:checked');
+        const q6 = document.querySelector('input[name="bra-6"]:checked');
+
+        const resultBox = document.getElementById('braden-result');
+        const actionText = document.getElementById('braden-action');
+
+        if (!q1 || !q2 || !q3 || !q4 || !q5 || !q6) {
+            document.getElementById('braden-score').textContent = "0";
+            resetBox(resultBox, actionText, "Vui lòng chọn đủ 6 tiêu chí để đánh giá.");
+            return;
+        }
+
+        const total = parseInt(q1.value) + parseInt(q2.value) + parseInt(q3.value) + parseInt(q4.value) + parseInt(q5.value) + parseInt(q6.value);
+        document.getElementById('braden-score').textContent = total;
+
+        if (total >= 19 && total <= 23) {
+            resultBox.className = 'sticky-result alert-low';
+            actionText.innerHTML = "<strong>Mức độ: BÌNH THƯỜNG (19 - 23)</strong><br><ul class='action-list'><li><strong>Dụng cụ hỗ trợ:</strong> Không cần sử dụng các dụng cụ hỗ trợ.</li><li><strong>Hành động:</strong> Giải thích cho gia đình và bệnh nhân hiểu về bệnh: chú ý thay đổi cân nặng, nhiễm trùng da. Đánh giá các tình trạng thay đổi.</li></ul>";
+        } else if (total >= 15 && total <= 18) {
+            resultBox.className = 'sticky-result alert-med-low';
+            actionText.innerHTML = "<strong>Mức độ: NHẸ (15 - 18)</strong><br><ul class='action-list'><li><strong>Dụng cụ hỗ trợ:</strong> Dùng nệm phủ xốp hoặc nệm hơi đặc biệt. Xem xét chêm lót gối khi ngồi ghế hay xe lăn hay ở khuỷu tay.</li><li><strong>Hành động:</strong> Xoay trở thường xuyên: chú ý thay đổi cân nặng và nhiễm trùng da. Thúc đẩy xoay trở. Quản lý các yếu tố nguy cơ: dinh dưỡng cọ sát, kéo trượt, tiểu. Giải thích cho gia đình và bệnh nhân hiểu về bệnh. Đánh giá các tình trạng thay đổi.</li></ul>";
+        } else if (total >= 13 && total <= 14) {
+            resultBox.className = 'sticky-result alert-med';
+            actionText.innerHTML = "<strong>Mức độ: TRUNG BÌNH (13 - 14)</strong><br><ul class='action-list'><li><strong>Dụng cụ hỗ trợ:</strong> Dùng nệm bơm hơi hay các gối bơm hơi để chêm lót.</li><li><strong>Hành động:</strong> Tất cả các hành động bên trên. Tích cực xoay kể cả các động tác nhỏ. Đánh giá việc ngồi và tư thế bệnh nhân. Đánh giá dinh dưỡng. Giải thích người nhà và bệnh nhân hiểu về bệnh. Đánh giá các tình trạng thay đổi.</li></ul>";
+        } else if (total >= 10 && total <= 12) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Mức độ: CAO (10 - 12)</strong><br><ul class='action-list'><li><strong>Dụng cụ hỗ trợ:</strong> Dùng nệm bơm hơi hay các gối bơm hơi để chêm lót.</li><li><strong>Hành động:</strong> Tất cả các hành động bên trên. Tích cực xoay kể cả các động tác nhỏ. Đánh giá việc ngồi và tư thế bệnh nhân. Đánh giá dinh dưỡng. Giải thích người nhà và bệnh nhân hiểu về bệnh. Đánh giá các tình trạng thay đổi.</li></ul>";
+        } else {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Mức độ: NGHIÊM TRỌNG (6 - 9)</strong><br><ul class='action-list'><li><strong>Dụng cụ hỗ trợ:</strong> Dùng nệm bơm hơi hay các gối bơm hơi để chêm lót.</li><li><strong>Hành động:</strong> Tất cả các hành động bên trên. Tích cực xoay kể cả các động tác nhỏ. Đánh giá việc ngồi và tư thế bệnh nhân. Đánh giá dinh dưỡng. Giải thích người nhà và bệnh nhân hiểu về bệnh. Đánh giá các tình trạng thay đổi.</li></ul>";
+        }
+    }
+
+    // --- XỬ LÝ GCS ---
+    function calcGCS() {
+        const eVal = document.getElementById('gcs-e').value;
+        const vVal = document.getElementById('gcs-v').value;
+        const mVal = document.getElementById('gcs-m').value;
+        const resultBox = document.getElementById('gcs-result');
+        const actionText = document.getElementById('gcs-action');
+        
+        let eSev = eVal ? 4 - parseInt(eVal) : null;
+        let vSev = null; 
+        if (vVal) { 
+            if (vVal === 't') vSev = 1; 
+            else { let v = parseInt(vVal); vSev = v >= 4 ? 5 - v : (v === 3 ? 2 : 3); }
+        }
+        let mSev = null; if (mVal) { let m = parseInt(mVal); mSev = m >= 5 ? 6 - m : (m === 4 ? 2 : 3); }
+
+        updateFieldUISeverity('gcs-e', eVal, eSev);
+        updateFieldUISeverity('gcs-v', vVal, vSev);
+        updateFieldUISeverity('gcs-m', mVal, mSev);
+
+        if (!eVal || !vVal || !mVal) {
+            document.getElementById('gcs-score').textContent = "0";
+            resetBox(resultBox, actionText, "Vui lòng chọn đủ 3 phản ứng.");
+            return;
+        }
+
+        let isIntubated = (vVal === 't');
+        let eNum = parseInt(eVal);
+        let mNum = parseInt(mVal);
+        let total = eNum + (isIntubated ? 0 : parseInt(vVal)) + mNum;
+        let totalDisplay = isIntubated ? (eNum + mNum) + "T" : total;
+
+        document.getElementById('gcs-score').textContent = totalDisplay;
+
+        let phanLoai = "";
+        let danhGia = "";
+
+        if (isIntubated) {
+            resultBox.className = 'sticky-result alert-med-low';
+            danhGia = "Bệnh nhân có đặt ống Nội khí quản (Vt)";
+            phanLoai = "Không tự quy đổi điểm V. Đánh giá tùy tình trạng lâm sàng.";
+        } else {
+            if (total >= 13 && total <= 15) {
+                phanLoai = "Rối loạn ý thức nhẹ/ý thức tương đối tốt.";
+                resultBox.className = 'sticky-result alert-low';
+            } else if (total >= 9 && total <= 12) {
+                phanLoai = "Rối loạn ý thức mức độ trung bình.";
+                resultBox.className = 'sticky-result alert-med-low';
+            } else if (total <= 8) {
+                phanLoai = "Rối loạn ý thức nặng, cần đánh giá và xử trí cấp cứu đường thở, tùy tình trạng lâm sàng.";
+                resultBox.className = 'sticky-result alert-high';
+            }
+
+            if (total === 15) {
+                danhGia = "Bình thường";
+            } else if (total >= 9 && total <= 14) {
+                danhGia = "Rối loạn ý thức nhẹ";
+            } else if (total >= 6 && total <= 8) {
+                danhGia = "Rối loạn ý thức nặng";
+            } else if (total === 4 || total === 5) {
+                danhGia = "Hôn mê sâu";
+            } else if (total === 3) {
+                danhGia = "Hôn mê rất sâu, đe dọa không hồi phục";
+            }
+        }
+
+        let vText = isIntubated ? 'Vt' : `V${vVal}`;
+        actionText.innerHTML = `
+            <div style="margin-bottom: 6px;"><strong>Chi tiết:</strong> GCS = E${eVal}${vText}M${mVal} ${isIntubated ? `(Điểm: ${totalDisplay})` : `= ${total} điểm`}</div>
+            <div style="margin-bottom: 4px;"><strong>Đánh giá:</strong> ${danhGia}</div>
+            <div><strong>Phân loại:</strong> ${phanLoai}</div>
+        `;
+    }
+
+    // --- XỬ LÝ VAS ---
+    const vasSlider = document.getElementById('vas-slider');
+    const vasVal = document.getElementById('vas-val');
+    const vasResult = document.getElementById('vas-result');
+    const vasEmoji = document.getElementById('vas-emoji');
+    const vasLabel = document.getElementById('vas-label');
+
+    vasSlider.addEventListener('input', function() {
+        const val = parseInt(this.value);
+        vasVal.textContent = val;
+        
+        let desc = "";
+
+        if (val === 0) {
+            vasEmoji.textContent = "😃"; vasLabel.textContent = "Không đau"; vasLabel.style.color = "#3b82f6";
+            desc = "Không đau.";
+        } else if (val === 1) {
+            vasEmoji.textContent = "🙂"; vasLabel.textContent = "Đau nhẹ"; vasLabel.style.color = "#10b981";
+            desc = "Đau rất nhẹ, hầu như không cảm nhận được, thỉnh thoảng thấy đau nhẹ.";
+        } else if (val === 2) {
+            vasEmoji.textContent = "🙂"; vasLabel.textContent = "Đau nhẹ"; vasLabel.style.color = "#10b981";
+            desc = "Đau nhẹ, thỉnh thoảng có cơn đau nhói mạnh.";
+        } else if (val === 3) {
+            vasEmoji.textContent = "🙂"; vasLabel.textContent = "Đau nhẹ"; vasLabel.style.color = "#10b981";
+            desc = "Đau làm người bệnh chú ý, mất tập trung nhưng vẫn có thể thích ứng.";
+        } else if (val === 4) {
+            vasEmoji.textContent = "😐"; vasLabel.textContent = "Đau vừa"; vasLabel.style.color = "#f59e0b";
+            desc = "Đau vừa phải, có thể quên đi cơn đau khi đang làm việc.";
+        } else if (val === 5) {
+            vasEmoji.textContent = "😐"; vasLabel.textContent = "Đau vừa"; vasLabel.style.color = "#f59e0b";
+            desc = "Đau nhiều hơn, không thể quên sau vài phút, nhưng vẫn có thể làm việc.";
+        } else if (val === 6) {
+            vasEmoji.textContent = "😞"; vasLabel.textContent = "Đau vừa"; vasLabel.style.color = "#ea580c";
+            desc = "Đau vừa phải nhiều hơn, ảnh hưởng đến sinh hoạt hàng ngày và khó tập trung.";
+        } else if (val === 7) {
+            vasEmoji.textContent = "😞"; vasLabel.textContent = "Đau nặng"; vasLabel.style.color = "#ea580c";
+            desc = "Đau nặng, ảnh hưởng đến giác quan và giấc ngủ, hạn chế nhiều sinh hoạt hàng ngày.";
+        } else if (val === 8) {
+            vasEmoji.textContent = "😢"; vasLabel.textContent = "Đau nặng"; vasLabel.style.color = "#c2410c";
+            desc = "Đau dữ dội, hạn chế nhiều hoạt động, cần phải nỗ lực rất nhiều để chống chịu.";
+        } else if (val === 9) {
+            vasEmoji.textContent = "😭"; vasLabel.textContent = "Đau không chịu nổi"; vasLabel.style.color = "#ef4444";
+            desc = "Đau kinh khủng, không kiểm soát được tiếng kêu khóc, rên rỉ.";
+        } else if (val === 10) {
+            vasEmoji.textContent = "😭"; vasLabel.textContent = "Đau không chịu nổi"; vasLabel.style.color = "#ef4444";
+            desc = "Đau không thể nói chuyện được, nằm liệt giường và có thể mê sảng.";
+        }
+
+        vasResult.innerHTML = `<strong>Điểm ${val}:</strong> ${desc}`;
+    });
+
+    // --- XỬ LÝ VIP ---
+    function calcVIP(changedId) {
+        const painMild = document.getElementById('vip-pain-mild');
+        const redMild = document.getElementById('vip-red-mild');
+        const pain = document.getElementById('vip-pain');
+        const red = document.getElementById('vip-red');
+        const swell = document.getElementById('vip-swell');
+        const painAlong = document.getElementById('vip-pain-along');
+        const cord = document.getElementById('vip-cord');
+        const fever = document.getElementById('vip-fever');
+
+        // 1. TỰ ĐỘNG CHỌN XUỐNG
+        if (changedId === 'vip-fever' && fever.checked) {
+            cord.checked = true; painAlong.checked = true; red.checked = true; swell.checked = true;
+        }
+        if (changedId === 'vip-cord' && cord.checked) {
+            painAlong.checked = true; red.checked = true; swell.checked = true;
+        }
+        if (changedId === 'vip-pain-along' && painAlong.checked) {
+            red.checked = true; swell.checked = true;
+        }
+        if (changedId === 'vip-pain' && pain.checked) {
+            painMild.checked = true;
+        }
+        if (changedId === 'vip-red' && red.checked) {
+            redMild.checked = true;
+        }
+
+        // 2. TỰ ĐỘNG GỠ BỎ
+        if (changedId === 'vip-red' && !red.checked) {
+            painAlong.checked = false; cord.checked = false; fever.checked = false;
+        }
+        if (changedId === 'vip-swell' && !swell.checked) {
+            painAlong.checked = false; cord.checked = false; fever.checked = false;
+        }
+        if (changedId === 'vip-pain-along' && !painAlong.checked) {
+            cord.checked = false; fever.checked = false;
+        }
+        if (changedId === 'vip-cord' && !cord.checked) {
+            fever.checked = false;
+        }
+        if (changedId === 'vip-pain-mild' && !painMild.checked) {
+            pain.checked = false; painAlong.checked = false; cord.checked = false; fever.checked = false;
+        }
+        if (changedId === 'vip-red-mild' && !redMild.checked) {
+            red.checked = false; painAlong.checked = false; cord.checked = false; fever.checked = false;
+        }
+
+        // 3. TÍNH ĐIỂM
+        let val = 0;
+        let countM2 = (pain.checked ? 1 : 0) + (red.checked ? 1 : 0) + (swell.checked ? 1 : 0);
+
+        if (fever.checked && cord.checked && painAlong.checked && red.checked && swell.checked) {
+            val = 5;
+        } else if (cord.checked && painAlong.checked && red.checked && swell.checked) {
+            val = 4;
+        } else if (painAlong.checked && red.checked && swell.checked) {
+            val = 3;
+        } else if (countM2 >= 2) {
+            val = 2;
+        } else if (painMild.checked || redMild.checked || pain.checked || red.checked || swell.checked || painAlong.checked || cord.checked || fever.checked) {
+            val = 1;
+        } else {
+            val = 0;
+        }
+
+        const resultBox = document.getElementById('vip-result');
+        const actionText = document.getElementById('vip-action');
+
+        let sev = Math.min(val, 3);
+        if(val === 4 || val === 5) sev = 3;
+        
+        const badge = document.getElementById('badge-vip');
+        badge.className = 'badge badge-' + sev;
+        badge.textContent = val + ' điểm';
+
+        document.getElementById('vip-score').textContent = "Độ " + val;
+        
+        if (val === 0) {
+            resultBox.className = 'sticky-result alert-low';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Không có dấu hiệu viêm tĩnh mạch<br><strong>Xử trí:</strong> Tiếp tục theo dõi vị trí đặt catheter";
+        } else if (val === 1) {
+            resultBox.className = 'sticky-result alert-med-low';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Có thể là dấu hiệu khởi đầu viêm tĩnh mạch<br><strong>Xử trí:</strong> Liên tục theo dõi vị trí đặt catheter";
+        } else if (val === 2) {
+            resultBox.className = 'sticky-result alert-med';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Viêm tĩnh mạch giai đoạn Sớm<br><strong>Xử trí:</strong> Rút catheter";
+        } else if (val === 3) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Viêm tĩnh mạch giai đoạn Trung bình<br><strong>Xử trí:</strong> (1) Rút catheter (2) Cân nhắc điều trị";
+        } else if (val === 4) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Viêm tĩnh mạch tiến triển hoặc Khởi đầu viêm tĩnh mạch huyết khối<br><strong>Xử trí:</strong> (1) Rút catheter (2) Cân nhắc điều trị";
+        } else if (val === 5) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Đánh giá:</strong> Viêm tĩnh mạch tiến triển<br><strong>Xử trí:</strong> (1) Rút catheter (2) Cân nhắc điều trị";
+        }
+    }
+
+    // --- XỬ LÝ RASS ---
+    function calcRASS() {
+        const q = document.querySelector('input[name="rass"]:checked');
+        const resultBox = document.getElementById('rass-result');
+        const actionText = document.getElementById('rass-action');
+
+        if (!q) {
+            document.getElementById('rass-score').textContent = "-";
+            resetBox(resultBox, actionText, "Vui lòng chọn mức độ đánh giá.");
+            return;
+        }
+
+        const val = parseInt(q.value);
+        let displayVal = val > 0 ? "+" + val : val;
+        document.getElementById('rass-score').textContent = displayVal;
+
+        if (val >= 1) {
+            resultBox.className = 'sticky-result alert-high';
+            actionText.innerHTML = "<strong>Ý nghĩa:</strong> Chưa đạt mức độ an thần, cần thêm thuốc an thần";
+        } else if (val >= -2 && val <= 0) {
+            resultBox.className = 'sticky-result alert-low';
+            actionText.innerHTML = "<strong>Ý nghĩa:</strong> Đạt mục tiêu an thần";
+        } else {
+            resultBox.className = 'sticky-result alert-med';
+            actionText.innerHTML = "<strong>Ý nghĩa:</strong> An thần quá mức, cân nhắc giảm bớt thuốc an thần";
+        }
+    }
+
+</script>
+
+</body>
+</html>
